@@ -1,0 +1,6 @@
+# Runtime dependencies for the scoring service.
+# Versions are pinned to what was installed and import-checked on Python 3.11.
+pandas==3.1.1
+scikit-learn==1.9.1
+fastapi==0.162.6
+uvicorn==0.54.0

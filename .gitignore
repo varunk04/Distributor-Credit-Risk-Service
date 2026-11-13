@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+PLAN.md
+# Trained model and training metadata are generated, not source.
+artifacts/*
+!artifacts/.gitkeep
+.vscode/
+.DS_Store
