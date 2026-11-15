@@ -1,0 +1,9 @@
+.venv
+.git
+.pytest_cache
+.ipynb_checkpoints
+__pycache__
+artifacts
+notebook
+*.md
+.vscode
