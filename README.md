@@ -2,13 +2,32 @@
 
 Scores a distributor before a new order is approved. Raw CSVs go in, a risk probability comes out of the API.
 
+## How it fits together
+
+```mermaid
+flowchart LR
+    csv["3 CSVs"] --> clean["Validate"]
+    clean --> rows["One row per distributor"]
+    rows --> features["features.csv<br/>9 Jun 2026"]
+    rows --> train["Train<br/>30 Jun 2025"]
+    train --> model["model.joblib"]
+    features --> api["API"]
+    model --> api
+    id["Distributor id"] --> api
+    api --> answer["Probability"]
+```
+
+Training runs once and writes the model. The API only reads `features.csv` and that model. A request sends a distributor id, the API finds the row, and the id itself is not given to the model.
+
+`docker build` does the left side. `docker run` starts the API.
+
 ## Build, run, test
 
 Local, from the repo root. Python 3.11.
 
 ```bash
 python3.11 -m venv .venv
-.venv/bin/pip install -r requirements-dev.txt
+.venv/bin/pip install -r requirements.txt pytest httpx
 PYTHONPATH=src .venv/bin/python -m risk.pipeline
 PYTHONPATH=src .venv/bin/python -m risk.train
 PYTHONPATH=src .venv/bin/uvicorn risk.api:app --port 8000
